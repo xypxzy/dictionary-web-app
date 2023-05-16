@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-type fontTypes = 'sans'| 'serif' | 'monospace';
+type fontTypes = 'sans'| 'serif' | 'mono';
 interface IFonts {
     font: fontTypes,
 }

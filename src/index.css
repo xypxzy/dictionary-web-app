@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;700&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&display=swap');
+
 :root {
     --light-bg: #fff;
     --dark-bg: #323232;
@@ -6,6 +8,11 @@
     --black: #323232;
     --gray: #D4D4D4;
     --dark-gray: #b4b4b4;
+
+    --ff-sans: 'Noto Sans', sans-serif;
+    --ff-mono: 'Noto Sans Mono', monospace;
+    --ff-serif: 'Noto Serif', serif;
+
 }
 
 
@@ -15,4 +22,11 @@ body[data-theme = 'light'] {
 
 body[data-theme = 'dark'] {
     background-color: #000;
+}
+
+body[font = 'sans'] {
+    font-family: var(--ff-sans);
+}
+body[font = 'serif'] {
+    font-family: var(--ff-serif);
 }

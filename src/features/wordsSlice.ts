@@ -1,39 +1,29 @@
-import {createAsyncThunk, createSlice, } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios from 'axios';
+import {IWords} from "../types/words.types.ts";
 
-interface IWords {
-    meta: {
-        uuid: string,
-        stem: Array<string>
-    }
-    hw1: {
-        hw: string,
-        prs: Array<{
-            mw: string ,
-            sound: {
-                audio: string
-            }
-        }>
-    }
-}
-
+const API_KEY = `892285f9-c566-49e3-81e1-9fa7a09ae3d4`;
 interface IWordsSliceState {
-    data: IWords | undefined,
+    data: IWords[],
     status: 'idle' | 'loading' | 'success' | 'failed',
     error: string | undefined;
 }
 
 const initialState: IWordsSliceState= {
-    data: undefined,
+    data: [],
     status: 'idle',
     error: undefined,
 }
 
 export const getWords = createAsyncThunk(
     '@@data/getWords',
-    async () => {
-        const res = await axios.get(`https://www.dictionaryapi.com/api/v3/references/sd2/json/school?key=${API_KEY}`);
-        return res.data;
+    async (words : string) => {
+        try {
+            const res = await axios.get(`https://dictionaryapi.com/api/v3/references/sd2/json/${words}?key=${API_KEY}`);
+            return res.data;
+        } catch (error) {
+            throw Error('Error fetching data');
+        }
     }
 )
 
@@ -46,13 +36,13 @@ const wordsSlice = createSlice({
             .addCase(getWords.pending, state => {
                 state.status = 'loading'
             })
-            .addCase(getWords.fulfilled, (state, action) => {
+            .addCase(getWords.fulfilled, (state, action:PayloadAction<IWords[]>) => {
                 state.status = 'success';
                 state.data = action.payload;
             })
             .addCase(getWords.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                state.error = action.error.message as string;
             })
     }
 })

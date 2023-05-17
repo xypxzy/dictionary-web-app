@@ -32,10 +32,10 @@ const ToggleButton = styled.span`
   label:after {
     content: '';
     position: absolute;
-    top: 2.5px;
-    left: 2.5px;
-    width: 15px;
-    height: 15px;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
     background: #fff;
     border-radius: 10px;
     transition: 0.3s;

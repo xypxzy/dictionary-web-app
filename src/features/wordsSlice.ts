@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios from 'axios';
 import {IWords} from "../types/words.types.ts";
 
-const API_KEY = `892285f9-c566-49e3-81e1-9fa7a09ae3d4`;
+const API_KEY = `81933028-e9dd-4f31-a225-f64c48cc2fc0`;
 interface IWordsSliceState {
     data: IWords[],
     status: 'idle' | 'loading' | 'success' | 'failed',
@@ -17,9 +17,9 @@ const initialState: IWordsSliceState= {
 
 export const getWords = createAsyncThunk(
     '@@data/getWords',
-    async (words : string) => {
+    async (word : string) => {
         try {
-            const res = await axios.get(`https://dictionaryapi.com/api/v3/references/sd2/json/${words}?key=${API_KEY}`);
+            const res = await axios.get(`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${API_KEY}`);
             return res.data;
         } catch (error) {
             throw Error('Error fetching data');

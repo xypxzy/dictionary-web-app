@@ -18,13 +18,13 @@
 }
 
 body[data-theme = 'light'] {
-    --bg: #fff;
-
+    --bg: var(--light-bg);
     background-color: var(--bg);
     color: var(--black);
 }
 body[data-theme = 'dark'] {
     --bg: var(--dark-bg);
+
     background-color: var(--bg);
     color: var(--gray);
 }

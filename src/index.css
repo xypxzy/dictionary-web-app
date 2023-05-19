@@ -8,7 +8,7 @@
     --black: #323232;
     --gray: #b4b4b4;
     --light-gray: #e1e1e1;
-    --dark-gray: #939393;
+    --dark-gray: #777777;
 
 
     --ff-sans: 'Noto Sans', sans-serif;
@@ -19,14 +19,19 @@
 
 body[data-theme = 'light'] {
     --bg: var(--light-bg);
+    --input-bg: var(--light-gray);
+
     background-color: var(--bg);
     color: var(--black);
 }
 body[data-theme = 'dark'] {
     --bg: var(--dark-bg);
+    --input-bg: var(--dark-gray);
+    /*--purple: #ca92f6;*/
+    --search: #d8c3e7;
 
     background-color: var(--bg);
-    color: var(--gray);
+    color: var(--light-bg);
 }
 body[font = 'sans'] {
     font-family: var(--ff-sans);

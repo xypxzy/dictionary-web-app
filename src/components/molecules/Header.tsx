@@ -10,7 +10,7 @@ const Wrapper = styled.header `
   font-size: 20px;
 `
 
-const Logo = styled.image`
+const Logo = styled.div`
   font-family: inherit;
   font-size: 40px;
   font-weight: 200;
@@ -21,7 +21,6 @@ const Menu = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-  
 `
 
 function Header() {

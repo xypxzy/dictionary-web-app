@@ -1,10 +1,8 @@
 import Header from "./components/molecules/Header.tsx";
 import styled from "styled-components";
 import Input from "./components/atoms/Input.tsx";
-import InfoWord from "./components/molecules/InfoWord.tsx";
-import {useSelector} from "react-redux";
-import {RootState} from "./store.ts";
-import NotFound from "./pages/NotFound.tsx";
+import {lazy, Suspense} from "react";
+import Loading from "./components/atoms/Loading.tsx";
 
 const Container = styled.div`
   width: 55%;
@@ -12,27 +10,29 @@ const Container = styled.div`
   padding: 40px 0;
 
   display: grid;
-  grid-template-rows: 3.5rem 3.5rem 1fr;
-  row-gap:1rem;
+  grid-template-rows: 3.5rem 3.5rem  1fr;
+  row-gap: 1rem;
+
+  @media (max-width: 992px) {
+    width: 90%;
+  }
 `
 
+const LazySimilarWords = lazy(() => import('./components/molecules/SimilarWords.tsx'));
+const LazyInfoWords = lazy(() => import('./components/molecules/InfoWord.tsx'));
+
 function App() {
-    const {data} = useSelector((state: RootState) => state.words);
     return (
-        <>
-            {typeof data[0] == 'string'
-                ?
-                <NotFound/>
-                :
                 <Container>
                     <Header/>
                     <Input/>
-                    <InfoWord></InfoWord>
+                    <Suspense fallback={<Loading/>}>
+                        <LazySimilarWords/>
+                    </Suspense>
+                    <Suspense fallback={<Loading/>}>
+                        <LazyInfoWords/>
+                    </Suspense>
                 </Container>
-            }
-
-        </>
-
     )
 }
 

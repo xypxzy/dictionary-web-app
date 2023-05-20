@@ -1,5 +1,5 @@
-# dictionary-web-app
-"Unlock the Power of Words: Your Ultimate Dictionary Web App!"
+# WordSense
+"Unlock the Meaning Behind Every Word with Wordsense!"
 
 ## Table of contents
 - [Overview](#overview)

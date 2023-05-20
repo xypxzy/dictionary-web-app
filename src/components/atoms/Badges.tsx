@@ -8,6 +8,14 @@ export const List = styled.span `
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px 30px;
+
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 490px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `
 
 export const Item = styled.button<ButtonProps>`

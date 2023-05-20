@@ -17,6 +17,8 @@ const WordInfo = styled.span`
   flex-direction: column;
   padding: 1rem 0;
 
+
+
   & h1 {
     margin: 0;
     font-size: 46px;
@@ -27,6 +29,17 @@ const WordInfo = styled.span`
     margin: 0;
     font-weight: 400;
     color: var(--purple);
+  }
+
+
+  @media (max-width: 768px) {
+    width: 100%;
+    
+    & h1 {
+      width: 250px;
+      font-size: 36px;
+      flex-wrap: wrap;
+    }
   }
 `
 
@@ -41,6 +54,17 @@ const PlayButton = styled.button`
   border-radius: 50%;
 
   cursor: pointer;
+`
+
+const DisabledPlayBtn = styled.div`
+  user-select: none;
+  border: none;
+  font-size: 30px;
+  border-radius: 50%;
+  background-color: var(--light-gray);
+  padding: 15px 15px 10px;
+
+  color: var(--dark-gray);
 `
 
 function Word() {
@@ -82,11 +106,12 @@ function Word() {
                         {words[0].hwi.prs
                             ?
                             <>
-                                {words[0].hwi.prs.map(m => {
+                                {words[0].hwi.prs.map((m) => {
                                     if(m.sound) {
                                         return(
                                         <audio ref={audioRef} src={audiourl(m.sound.audio)}
                                                onEnded={handleAudioEnded}
+                                               key={m.sound.audio}
                                         ></audio>
                                         )
                                     }
@@ -101,7 +126,10 @@ function Word() {
                                 </PlayButton>
                             </>
                             :
-                            <>Audio is undefined</>}
+                            <DisabledPlayBtn>
+                            <RiPlayFill/>
+                            </DisabledPlayBtn>
+                        }
 
                     </div>
                 </Wrapper>

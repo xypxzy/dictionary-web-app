@@ -3,8 +3,7 @@ import Word from "../atoms/Word.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../store.ts";
 import {IWords} from "../../types/words.types.ts";
-import React, { useState} from "react";
-import {getWords} from "../../features/wordsSlice.ts";
+import {getWords, setCurrentWord} from "../../features/wordsSlice.ts";
 import {Item, List} from "../atoms/Badges.tsx";
 import {searchFormatter} from "../../helpers/helpers.ts";
 import IsLoading from "../atoms/Loading.tsx";
@@ -14,9 +13,10 @@ const Wrapper = styled.div`
   width: 95%;
   margin: 0 auto;
 
-  @media (max-width: 992px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
+
 `;
 
 const FunctionalLabel = styled.h5`
@@ -39,7 +39,7 @@ const FunctionalLabel = styled.h5`
 `
 
 const HeadwordInfo = styled.div`
-  
+
 `
 const ShortDef = styled.ul`
   margin: 0;
@@ -52,26 +52,31 @@ const ShortDefItem = styled.li`
 
 const SynonymsItems = styled.div`
   display: flex;
-  align-items: center;
-  gap: 3rem;
+  align-items: start;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @media (max-width: 480px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `
 
-const Tag = styled.h3 `
+const Tag = styled.h3`
   font-family: inherit;
   font-size: 16px;
   font-weight: 400;
-  
+
   margin: 0;
   padding: 0;
-  
-  color: var(--dark-gray);
-  
+
+  color: var(--tags);
 `
 
 
 function InfoWord() {
-    const {words, status} = useSelector((state: RootState) => state.words);
-    const [curValue, setCurValue] = useState<string>('');
+    const {words, status, currentWord} = useSelector((state: RootState) => state.words);
     const dispatch: AppDispatch = useDispatch();
 
 
@@ -82,9 +87,8 @@ function InfoWord() {
         return words.filter((word: IWords) => !(word.hom || word.meta.uuid == data[0].meta.uuid))
     }
     const handleChooseWord = (e: React.MouseEvent<HTMLButtonElement>) => {
-        setCurValue(e.currentTarget.innerHTML);
-        dispatch(getWords(curValue));
-
+        dispatch(setCurrentWord(e.currentTarget.innerHTML));
+        dispatch(getWords(currentWord));
     }
 
     return (
@@ -101,7 +105,7 @@ function InfoWord() {
                                 <FunctionalLabel>{word.fl}</FunctionalLabel>
                                 <HeadwordInfo>
                                     <ShortDef>
-                                        {word.shortdef.length > 0 && <Tag>Meaning</Tag>}
+                                        {word.shortdef.length > 0 && <Tag>Meaning:</Tag>}
                                         {word.shortdef.map((sh, i) => (
                                             <ShortDefItem key={i}>
                                                 {sh}

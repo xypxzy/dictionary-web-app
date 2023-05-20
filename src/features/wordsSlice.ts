@@ -7,6 +7,7 @@ const API_KEY = `81933028-e9dd-4f31-a225-f64c48cc2fc0`;
 interface IWordsSliceState {
     words: IWords[],
     similarWords: string[],
+    currentWord: string,
     status: 'idle' | 'loading' | 'success' | 'failed',
     error: string | undefined;
 }
@@ -14,6 +15,7 @@ interface IWordsSliceState {
 const initialState: IWordsSliceState = {
     words: [],
     similarWords: [],
+    currentWord: '',
     status: 'idle',
     error: undefined,
 }
@@ -33,7 +35,11 @@ export const getWords = createAsyncThunk(
 const wordsSlice = createSlice({
     name: '@@words',
     initialState,
-    reducers: {},
+    reducers: {
+        setCurrentWord: (state, action: PayloadAction<string>) => {
+            state.currentWord = action.payload
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(getWords.pending, state => {
@@ -58,5 +64,5 @@ const wordsSlice = createSlice({
     }
 })
 
-
+export const {setCurrentWord} =  wordsSlice.actions;
 export const wordsReducer = wordsSlice.reducer

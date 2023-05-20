@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {RiSearchLine} from "react-icons/ri";
-import {useDispatch} from "react-redux";
-import {ChangeEvent, FormEvent, useState} from "react";
-import {getWords} from "../../features/wordsSlice.ts";
-import {AppDispatch} from "../../store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {getWords, setCurrentWord} from "../../features/wordsSlice.ts";
+import {AppDispatch, RootState} from "../../store.ts";
 
 interface IFormContainer {
     error: boolean
@@ -19,7 +19,7 @@ const FormContainer = styled.form<IFormContainer>`
   border: 1px solid ${props => props.error ? 'red' : 'gray'};
   border-radius: 8px;
   
-  @media (max-width: 992px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `
@@ -54,12 +54,14 @@ const InputButton = styled.button`
 
 function Input() {
     const [inputValue, setInputValue] = useState<string>('');
-    const [error, setError] = useState<boolean>(false);
+    const [error, setError ] = useState<boolean>(false);
+
+    const currentWord = useSelector((state : RootState) => state.words.currentWord)
 
     const dispatch: AppDispatch = useDispatch();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
+        setInputValue(e.target.value)
         setError(false);
     }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -68,9 +70,14 @@ function Input() {
             setError(true);
             return;
         }
-        dispatch(getWords(inputValue))
+        dispatch(setCurrentWord(inputValue))
         setInputValue('')
     }
+
+    useEffect(() => {
+        dispatch(getWords(currentWord))
+        dispatch(setCurrentWord(''))
+    }, [currentWord])
 
     return (
         <>

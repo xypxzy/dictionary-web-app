@@ -54,6 +54,10 @@ const ToggleButton = styled.span`
     width: 10px;
   }
 
+  @media (max-width: 480px) {
+    gap: 10px;
+  }
+
 `;
 const ThemeIcon = styled.span`
   font-size: 25px;

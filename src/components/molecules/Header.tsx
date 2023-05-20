@@ -8,6 +8,7 @@ const Wrapper = styled.header `
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
+  
 `
 
 const Logo = styled.div`
@@ -21,6 +22,10 @@ const Menu = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
+
+  @media (max-width: 480px) {
+    gap: 0;
+  }
 `
 
 function Header() {

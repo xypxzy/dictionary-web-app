@@ -1,8 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../store.ts";
 import styled from "styled-components";
-import React, { useState} from "react";
-import {getWords} from "../../features/wordsSlice.ts";
+import {getWords, setCurrentWord} from "../../features/wordsSlice.ts";
 import {Item, List} from "../atoms/Badges.tsx";
 
 const Wrapper = styled.div`
@@ -12,13 +11,12 @@ const Wrapper = styled.div`
 
 
 function SimilarWords() {
-    const [curValue, setCurValue] = useState<string>('');
-    const {similarWords} = useSelector((state: RootState) => state.words);
+    const {similarWords, currentWord} = useSelector((state: RootState) => state.words);
     const dispatch: AppDispatch = useDispatch();
 
     const handleChooseWord = (e: React.MouseEvent<HTMLButtonElement>) => {
-        setCurValue(e.currentTarget.innerHTML);
-        dispatch(getWords(curValue));
+        dispatch(setCurrentWord(e.currentTarget.innerHTML))
+        dispatch(getWords(currentWord));
     }
     return (
 
